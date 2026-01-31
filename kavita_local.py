@@ -2,6 +2,10 @@ import argparse
 import os
 import sys
 from pathlib import Path
+
+# 파일 로깅 비활성화 (다른 모듈 import 전에 설정)
+os.environ['LOG_FILE'] = 'false'
+
 import yaml
 
 from mod_makeinfo import ModMakeInfo

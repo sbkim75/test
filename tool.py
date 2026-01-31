@@ -56,7 +56,7 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-def get_logger(name=None, log_path=None):
+def get_logger(name=None, log_path=None, file_logging=None):
     if os.environ.get('FF') == 'true':
         name = 'framework'
     if name == None:
@@ -73,18 +73,24 @@ def get_logger(name=None, log_path=None):
             return converted.timetuple()
 
         formatter.converter = customTime
-        file_max_bytes = 1 * 1024 * 1024 
-        if log_path == None:
-           log_path = os.path.join(os.getcwd(), 'log')
-        os.makedirs(log_path, exist_ok=True)
-        streamHandler = logging.StreamHandler() 
-        streamHandler.setFormatter(CustomFormatter()) 
+        file_max_bytes = 1 * 1024 * 1024
+
+        streamHandler = logging.StreamHandler()
+        streamHandler.setFormatter(CustomFormatter())
         logger.addHandler(streamHandler)
-        if log_path != None:
+
+        # 환경 변수 또는 파라미터로 파일 로깅 제어
+        if file_logging is None:
+            file_logging = os.environ.get('LOG_FILE', 'true').lower() == 'true'
+
+        if file_logging:
+            if log_path == None:
+               log_path = os.path.join(os.getcwd(), 'log')
+            os.makedirs(log_path, exist_ok=True)
             fileHandler = logging.handlers.RotatingFileHandler(filename=os.path.join(log_path, f'{name}.log'), maxBytes=file_max_bytes, backupCount=5, encoding='utf8', delay=True)
-            fileHandler.setFormatter(formatter)        
+            fileHandler.setFormatter(formatter)
             logger.addHandler(fileHandler)
-        
+
     return logger
 
 def get_epub_info(epub_path):
