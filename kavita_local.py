@@ -3,15 +3,21 @@ import os
 import sys
 from pathlib import Path
 import yaml
+import logging
 
 from mod_makeinfo import ModMakeInfo
 from site_naver_book import SiteNaverBook
-from tool import get_logger
 
 # 지원하는 전자책 파일 확장자
 EXTENSIONS = ["cbz", "zip", "rar", "cbr", "tar.gz", "7zip", "7z", "cb7", "cbt", "pdf", "epub", "txt"]
 
-logger = get_logger()
+# 간단한 logger 설정 (파일 로깅 없이 콘솔만)
+logger = logging.getLogger(__name__)
+if not logger.handlers:
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
+    logger.addHandler(handler)
 
 class KavitaLocal:
     def __init__(self, root_path=None, recursive=True, config_path=None, option_name=None):
