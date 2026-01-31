@@ -1,0 +1,10 @@
+pdf2image
+xmltodict
+
+윈도우의 경우 https://poppler.freedesktop.org/ 이걸 설치후에 
+mod_makeinfo.py의  
+def process_pdf(self, filepath):
+   pdf_info = pdfinfo_from_path(filepath, poppler_path="C:\\poppler-24.07.0\\Library\\bin")
+   pages = convert_from_path(filepath, last_page=1, poppler_path="C:\\poppler-24.07.0\\Library\\bin")
+   
+위 두부분을 수정해준다. 지금은 그 되는 주석 처리된 걸로 변경해서 사용   

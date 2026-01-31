@@ -1,0 +1,180 @@
+NAVER_APIKEY:
+  - OJYhrQ7SnLf_sRj_33M3,yg3_zUTG6Q
+  - qq2EzihsMbZvanV0FdcH,0vAxKXTKv6
+  - dO2ZrsBQWX0PHcxFk2bB,A9gOHQQaIT
+  - Ru8JYZtTNQTD6kxOQ1dM,JnjrSV4YXx
+  - u7KnLW_3cKnm_Fj206dM,cgfsT9qiAU
+
+# META_GENRE: 는 META_SITE: RIDIBOOKS,NAVERSERIES,KAKAOPAGE 에서 사용하고 대상 책의 분류가 만화일 경우만 'COMIC'으로 입력.
+# IS_EBOOK : Trur or False : 도서의 종류가 연재본일경우 False,e북일 경우 True, RidiSelect일 경우는 비워둔다
+# PROCESS_EXIST_KAVITA_YAML: 에 UPDATE 모드 추가 code가 없을경우만 메타 검색
+
+
+OPTIONS:
+  - NAME: RIDI
+    MODE: MAKEINFO
+    ROOT:
+      - "/mnt/h800_d/Reading/temp/down"
+
+    META_SITE: RIDIBOOKS
+    #META_SITE: NAVERSERIES
+    META_GENRE: 'COMIC'
+    IS_EBOOK: True
+    PROCESS_EXIST_KAVITA_YAML: REMAKE
+    MAKE_COVER: NONE
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False
+    DEFAULT_ACTION:
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+
+
+  - NAME: TEXT
+    MODE: MAKEINFO
+    ROOT:
+      - "/mnt/h800_d/Reading/temp/down"
+    META_SITE: NAVER
+    PROCESS_EXIST_KAVITA_YAML: NORMAL
+    MAKE_COVER: META
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False  
+    DEFAULT_ACTION:
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+
+  
+  - NAME: RIDIMOVE
+    MODE: RIDIMOVE
+    SRC: "/mnt/h800_d/Reading/temp/reading_info"
+    TAR: "/mnt/h800_d/Reading/temp/reading_meta"
+    EXIST: "/mnt/h800_d/Reading/temp/reading_dup"
+
+  - NAME: 웹소설
+    MODE: MAKEINFO
+    ROOT:
+      - "/mnt/h800_d/Reading/temp/down"
+    META_SITE: XML
+    PROCESS_EXIST_KAVITA_YAML: NORMAL
+    MAKE_COVER: NONE
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False  
+    DEFAULT_ACTION:
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+
+  - NAME: 만화완결2
+    MODE: MAKEINFO
+    ROOT:
+      - "H://공유 드라이브//DATA2 - 리딩2//GDS//웹소설//단행//마//[단행] 무군"
+    META_SITE: NAVER
+    PROCESS_EXIST_KAVITA_YAML: PASS
+    MAKE_COVER: NONE
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False  
+    DEFAULT_ACTION:
+     
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+  
+  # 리디 전체 검증
+  - NAME: 리디
+    MODE: MAKEINFO
+    ROOT:
+      - "/mnt/h800_d/Reading/temp/down"
+    META_SITE: RIDIBOOKS
+    PROCESS_EXIST_KAVITA_YAML: PASS
+    MAKE_COVER: NONE
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False  
+    DEFAULT_ACTION:
+     
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+
+
+
+  - NAME: RIDIMOVE
+    MODE: RIDIMOVE
+    SRC: "H://공유 드라이브//DATA2 - 리딩2//GDS//리디//333"
+    TAR: "H://공유 드라이브//DATA2 - 리딩2//GDS//리디셀렉트"
+    EXIST: "H://공유 드라이브//DATA2 - 리딩2//GDS//리디//중복"
+
+
+  - NAME: 샘플
+    MODE: MAKEINFO
+    ROOT:
+      - "I://공유 드라이브//DATA2 - 리딩2//GDS//웹소설//단행//0Z//[단행] 0.0001초 광속의 이레귤러"
+
+    # NAVER RIDIBOOKS XML
+    META_SITE: XML
+
+    # kavita.yaml 파일이 존재한다면 
+    #   PASS: 패스
+    #   NORMAL: 읽고 비어있는 값만 처리.
+    #   REMAKE:
+    PROCESS_EXIST_KAVITA_YAML: XML
+
+    # cover.jpg 생성. 리스트
+    #   META: 메타사이트
+    #   LOCAL: 첫번째
+    #   LOCAL_ONLY_EPUB: epub만 메타, 나머지 메타
+    MAKE_COVER: 
+      #- META
+      #- LOCAL_ONLY_EPUB
+      #- LOCAL
+      - NONE
+
+    DELETE_INFO_XML: False
+    DELETE_COVER_JPG: False  
+
+    DEFAULT_ACTION:
+          
+    DEFAULT_META:
+      Age Rating: '3'
+      Language: 'ko'
+      Publication Status: '2'
+
+  - NAME: 테스트
+    MODE: RIDIMOVE
+    SRC: "I://공유 드라이브//DATA2 - 리딩2//GDS//리디셀렉트//222"
+    TAR: "I://공유 드라이브//DATA2 - 리딩2//GDS//리디셀렉트"
+
+
+
+# 연령 등급 - Age Rating
+  # NotApplicable = -1,
+  # Unknown = 0,
+  # RatingPending = 1,
+  # EarlyChildhood = 2,
+  # Everyone = 3,
+  # G = 4,
+  # Everyone10Plus = 5,
+  # PG = 6,
+  # KidsToAdults = 7,
+  # Teen = 8,
+  # Mature15Plus = 9,
+  # Mature17Plus = 10,
+  # Mature = 11,
+  # R18Plus = 12,
+  # AdultsOnly = 13,
+  # X18Plus = 14
+
+  # 출판 - Publication Status
+  # OnGoing = 0,
+  # Hiatus = 1
+  # Completed = 2  / 완결. 모두 보유
+  # Cancelled = 3
+  # Ended = 4 / 완결. 누락
+
+
+
